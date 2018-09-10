@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_strndup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,29 +12,15 @@
 
 #include "libft.h"
 
-char				**ft_strsplit(char const *s, char c)
+char			*ft_strndup(const char *s, size_t n)
 {
-	int				i;
-	int				j;
-	int				k;
-	char			**tab;
+	char			*str;
 
-	i = 0;
-	k = -1;
-	if (!s || !c)
+	if (!s)
 		return (NULL);
-	if (!(tab = (char **)malloc(sizeof(char *) * (ft_cntwrd(s, c)) + 1)))
+	if (!(str = (char *)malloc(sizeof(char) * n + 1)))
 		return (NULL);
-	while (s[i])
-	{
-		while (s[i] == c)
-			i++;
-		j = i;
-		while (s[i] && s[i] != c)
-			i++;
-		if (i > j)
-			tab[++k] = ft_strndup(s + j, i - j);
-	}
-	tab[k] = NULL;
-	return (tab);
+	str = ft_strncpy(str, s, n);
+	str[n] = '\0';
+	return (str);
 }

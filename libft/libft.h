@@ -84,5 +84,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
 int					get_next_line(const int fd, char **line);
+char				*ft_strndup(const char *s, size_t n)
+int					ft_cntwrd(char const *s, char c)
 
 #endif
