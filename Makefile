@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = arcohen.filler
+NAME = push_swap
 CC = gcc -o
 FLAGS = -Wall -Wextra -Werror
 INC = -I ./includes/
@@ -22,7 +22,7 @@ RM = rm -rf
 $(NAME):
 	@make -C $(LIB)
 	@$(CC) $(NAME) $(FLAGS) $(SRC) $(INC) -L libft/ -lft
-	@echo "-- Player Compiled Successfully --"
+	@echo "-- push_swap compiled successfully --"
 
 all: $(NAME)
 
@@ -32,7 +32,5 @@ clean:
 fclean:
 	@make fclean -C $(LIB)
 	@$(RM) $(NAME)
-	@echo "-- Player Cleaned --"
-
 
 re: fclean all
