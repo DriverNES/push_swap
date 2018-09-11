@@ -3,31 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcohen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/30 17:37:49 by arcohen           #+#    #+#             */
-/*   Updated: 2018/05/31 17:40:25 by arcohen          ###   ########.fr       */
+/*   Created: 2018/06/26 08:32:49 by ndriver           #+#    #+#             */
+/*   Updated: 2018/06/26 08:32:50 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstnew(void const *content, size_t content_size)
+t_list			*ft_lstnew(void const *content, size_t content_size)
 {
-	t_list *new;
+	t_list		*new;
 
-	if (!(new = (t_list *)malloc(sizeof(t_list))))
+	new = (t_list *)malloc(sizeof(t_list) * 1);
+	if (new == NULL)
 		return (NULL);
-	if (!content)
+	if (content == NULL)
 	{
 		new->content = NULL;
 		new->content_size = 0;
 	}
 	else
 	{
-		if (!(new->content = (void *)malloc(content_size)))
+		new->content = malloc(content_size);
+		if (new->content == NULL)
 			return (NULL);
-		ft_memcpy(new->content, content, content_size);
+		ft_memmove(new->content, content, content_size);
 		new->content_size = content_size;
 	}
 	new->next = NULL;

@@ -6,13 +6,12 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 07:44:19 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/06 18:07:36 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/11 11:40:43 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "..\libft\libft.h"
-#include "..\includes\push_swap.h"
-#include <stdio.h>
+#include "../libft/libft.h"
+#include "../includes/push_swap.h"
 
 void	ft_init(t_stacks *s, int size)
 {
@@ -30,6 +29,24 @@ void	ft_init(t_stacks *s, int size)
 		s->b[i] = 0;
 		s->masterstack[i] = 0;
 		i++;
+	}
+}
+
+void	init_one(t_stacks *s, char *str)
+{
+	int i;
+	int count;
+	char **out;
+
+	count = 0;
+	out = ft_strsplit(str, ' ');
+	i = ft_cntwrd(str, ' ');
+	ft_init(s, i);
+	while (count < i)
+	{
+		s->a[count] = ft_atoi(out[count]);
+		s->a_top++;
+		count++;
 	}
 }
 
@@ -65,7 +82,164 @@ void	normalize(t_stacks *s)
 	free(tmp);
 }
 
-int		is_sorted(t_stacks *s)
+void	set_var(t_stacks *s)
+{
+	set_min(s);
+	set_max(s);
+}
+
+void	set_max(t_stacks *s)
+{
+	int i;
+
+	if (s->a_top != -1)
+	{
+		i = 0;
+		s->a_max = s->a[0];
+		while (i <= s->a_top)
+		{
+			if (s->a[i] >= s->a_max)
+			{
+				s->a_max = s->a[i];
+				s->a_max_index = i;
+			}
+			i++;
+		}
+	}
+	if (s->b_top != -1)
+	{
+		i = 0;
+		s->b_max = s->b[0];
+		while (i <= s->b_top)
+		{
+			if (s->b[i] >= s->b_max)
+			{
+				s->b_max = s->b[i];
+				s->b_max_index = s->b[i];
+			}
+			i++;
+		}
+	}
+}
+
+void	set_min(t_stacks *s)
+{
+	int i;
+
+	if (s->a_top != -1)
+	{
+		i = 0;
+		s->a_min = s->a[0];
+		while (i <= s->a_top)
+		{
+			if (s->a[i] <= s->a_min)
+			{
+				s->a_min = s->a[i];
+				s->a_min_index = i;
+			}
+			i++;
+		}
+	}
+	if (s->b_top != -1)
+	{
+		i = 0;
+		s->b_min = s->b[0];
+		while (i <= s->b_top)
+		{
+			if (s->b[i] <= s->b_min)
+			{
+				s->b_min = s->b[i];
+				s->b_min_index = s->b[i];
+			}
+			i++;
+		}
+	}
+}
+
+int		is_ascending(t_stacks *s, char c)
+{
+	int i;
+	int j;
+
+	i = 0;
+	if (c == 'a')
+	{
+		while (i <= s->a_top)
+		{
+			j = i;
+			while (j <= s->a_top)
+			{
+				if (s->a[i] < s->a[j])
+				{
+					return (0);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	if (c == 'b')
+	{
+		while (i <= s->b_top)
+		{
+			j = i;
+			while (j <= s->b_top)
+			{
+				if (s->b[i] < s->b[j])
+				{
+					return (0);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+
+	return (1);
+}
+
+int		is_descending(t_stacks *s, char c)
+{
+	int i;
+	int j;
+
+	i = s->a_top;
+	if (c == 'a')
+	{
+		while (i >= 0)
+		{
+			j = i;
+			while (j >= 0)
+			{
+				if (s->a[i] > s->a[j])
+				{
+					return (0);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	if (c == 'b')
+	{
+		while (i >= 0)
+		{
+			j = i;
+			while (j >= 0)
+			{
+				if (s->b[i] > s->b[j])
+				{
+					return (0);
+				}
+				j++;
+			}
+			i++;
+		}
+	}
+	return (1);
+}
+
+int		check_dupes(t_stacks *s)
 {
 	int i;
 	int j;
@@ -74,17 +248,16 @@ int		is_sorted(t_stacks *s)
 	while (i <= s->a_top)
 	{
 		j = i;
+		j++;
 		while (j <= s->a_top)
 		{
-			if (s->a[i] < s->a[j])
-			{
-				return (0);
-			}
+			if (s->a[j] == s->a[i])
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 void	print_tab(t_stacks *s, char c)

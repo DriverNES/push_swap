@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                      :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 08:41:32 by ndriver           #+#    #+#             */
-/*   Updated: 2018/06/26 10:32:09 by ndriver          ###   ########.fr       */
+/*   Created: 2018/06/27 11:08:15 by ndriver           #+#    #+#             */
+/*   Updated: 2018/06/27 11:24:33 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strndup(const char *s, size_t n)
+char	*ft_strndup(const char *s, size_t n)
 {
-	char			*str;
+	char	*str;
 
-	if (!s)
-		return (NULL);
 	if (!(str = (char *)malloc(sizeof(char) * n + 1)))
 		return (NULL);
 	str = ft_strncpy(str, s, n);

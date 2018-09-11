@@ -3,29 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcohen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/21 13:59:08 by arcohen           #+#    #+#             */
-/*   Updated: 2018/05/28 16:39:05 by arcohen          ###   ########.fr       */
+/*   Created: 2018/06/26 08:34:17 by ndriver           #+#    #+#             */
+/*   Updated: 2018/06/26 08:34:18 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void		*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char *dest;
-	char *srce;
+	char	*tmp;
 
-	dest = (char *)dst;
-	srce = (char *)src;
-	if (dest > srce)
-		while (len--)
-			*(dest + len) = *(srce + len);
-	else
-		while (len--)
-		{
-			*dest++ = *srce++;
-		}
+	tmp = (char *)malloc(sizeof(char) * len);
+	if (tmp == NULL)
+		return (NULL);
+	ft_memcpy(tmp, src, len);
+	ft_memcpy(dst, tmp, len);
+	free(tmp);
 	return (dst);
 }

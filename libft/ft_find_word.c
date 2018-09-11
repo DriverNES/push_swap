@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_findword.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 08:41:25 by ndriver           #+#    #+#             */
-/*   Updated: 2018/06/26 08:41:25 by ndriver          ###   ########.fr       */
+/*   Created: 2018/06/27 11:14:40 by ndriver           #+#    #+#             */
+/*   Updated: 2018/06/27 11:14:58 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strrchr(const char *s, int c)
+int		ft_find_word(const char *s, char c, char **stra, int i)
 {
-	int		i;
+	int		len;
+	int		space;
 
-	i = ft_strlen(s);
-	if (c == 0)
-		return ((char *)s + i);
-	while (i >= 0)
+	space = 0;
+	len = 0;
+	while (*s == c)
 	{
-		if (s[i] == c)
-			return ((char *)s + i);
-		i--;
+		s++;
+		space++;
 	}
-	return (NULL);
+	while (s[len] && s[len] != c)
+		len++;
+	if (len > 0)
+	{
+		stra[i] = ft_strnew(len);
+		ft_strncpy(stra[i], s, len);
+	}
+	return (space + len);
 }

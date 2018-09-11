@@ -5,36 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 08:41:32 by ndriver           #+#    #+#             */
-/*   Updated: 2018/06/26 10:32:09 by ndriver          ###   ########.fr       */
+/*   Created: 2018/06/27 11:13:20 by ndriver           #+#    #+#             */
+/*   Updated: 2018/07/16 12:26:37 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char				**ft_strsplit(char const *s, char c)
+char			**ft_strsplit(char const *s, char c)
 {
-	int				i;
-	int				j;
-	int				k;
-	char			**tab;
+	int		len;
+	char	**stra;
+	int		i;
+	int		wc;
 
+	if (!s)
+		return (NULL);
+	wc = ft_cntwrd(s, c);
+	len = 0;
+	stra = (char **)ft_memalloc((wc + 1) * sizeof(char *));
+	if (!stra)
+		return (NULL);
 	i = 0;
-	k = -1;
-	if (!s || !c)
-		return (NULL);
-	if (!(tab = (char **)malloc(sizeof(char *) * (ft_cntwrd(s, c)) + 1)))
-		return (NULL);
-	while (s[i])
+	len = 0;
+	while (*s)
 	{
-		while (s[i] == c)
-			i++;
-		j = i;
-		while (s[i] && s[i] != c)
-			i++;
-		if (i > j)
-			tab[++k] = ft_strndup(s + j, i - j);
+		len = ft_find_word(s, c, stra, i++);
+		s += len;
 	}
-	tab[k] = NULL;
-	return (tab);
+	stra[wc] = 0;
+	return (stra);
 }

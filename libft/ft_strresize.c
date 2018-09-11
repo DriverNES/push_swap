@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strresize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 08:41:25 by ndriver           #+#    #+#             */
-/*   Updated: 2018/06/26 08:41:25 by ndriver          ###   ########.fr       */
+/*   Created: 2018/06/16 13:52:24 by jgovend           #+#    #+#             */
+/*   Updated: 2018/07/02 10:18:17 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strrchr(const char *s, int c)
+char	*ft_strresize(char *oldstr, size_t newsize)
 {
-	int		i;
+	char	*newstr;
 
-	i = ft_strlen(s);
-	if (c == 0)
-		return ((char *)s + i);
-	while (i >= 0)
-	{
-		if (s[i] == c)
-			return ((char *)s + i);
-		i--;
-	}
-	return (NULL);
+	if (ft_strlen(oldstr) >= newsize)
+		return (NULL);
+	newstr = ft_strnew(newsize);
+	if (!newstr)
+		return (NULL);
+	newstr = ft_strncpy(newstr, oldstr, ft_strlen(oldstr));
+	free(oldstr);
+	return (newstr);
 }

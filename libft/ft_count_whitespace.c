@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_count_whitespace.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 08:41:25 by ndriver           #+#    #+#             */
-/*   Updated: 2018/06/26 08:41:25 by ndriver          ###   ########.fr       */
+/*   Created: 2018/06/27 10:50:37 by ndriver           #+#    #+#             */
+/*   Updated: 2018/07/16 12:23:01 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strrchr(const char *s, int c)
+int	ft_count_whitespace(char const *s)
 {
-	int		i;
+	int i;
 
-	i = ft_strlen(s);
-	if (c == 0)
-		return ((char *)s + i);
-	while (i >= 0)
-	{
-		if (s[i] == c)
-			return ((char *)s + i);
-		i--;
-	}
-	return (NULL);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+		i++;
+	return (i);
 }

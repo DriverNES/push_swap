@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arcohen <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: ndriver <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/07/12 11:43:46 by arcohen           #+#    #+#              #
-#    Updated: 2018/07/24 13:33:40 by arcohen          ###   ########.fr        #
+#    Created: 2018/08/17 10:55:32 by ndriver           #+#    #+#              #
+#    Updated: 2018/09/11 11:39:19 by ndriver          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ RM = rm -rf
 $(NAME):
 	@make -C $(LIB)
 	@$(CC) $(NAME) $(FLAGS) $(SRC) $(INC) -L libft/ -lft
-	@echo "-- push_swap compiled successfully --"
 
 all: $(NAME)
 
@@ -32,5 +31,6 @@ clean:
 fclean:
 	@make fclean -C $(LIB)
 	@$(RM) $(NAME)
+
 
 re: fclean all

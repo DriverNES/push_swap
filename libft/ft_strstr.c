@@ -3,33 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcohen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/21 20:06:26 by arcohen           #+#    #+#             */
-/*   Updated: 2018/05/28 17:08:33 by arcohen          ###   ########.fr       */
+/*   Created: 2018/06/26 08:41:41 by ndriver           #+#    #+#             */
+/*   Updated: 2018/06/26 08:41:42 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	check(const char *hay, const char *need)
-{
-	while (*hay++ == *need++)
-		if (!(*need))
-			return (1);
-	return (0);
-}
+#include "libft.h"
 
-char		*ft_strstr(const char *hay, const char *need)
+char		*ft_strstr(const char *s1, const char *s2)
 {
-	int i;
+	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
-	if (!need[i])
-		return ((char *)hay);
-	while (hay[i])
+	if (s1[0] == '\0' && s2[0] == '\0')
+		return ((char *)s1);
+	while (s1[i] != '\0')
 	{
-		if (check((hay + i), need))
-			return ((char *)hay + i);
+		j = 0;
+		while (s2[j] != '\0' && s1[i + j] == s2[j])
+			j++;
+		if (s2[j] == '\0')
+			return ((char *)s1 + i);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cntwrd.c                                      :+:      :+:    :+:   */
+/*   ft_cntwrd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 08:41:32 by ndriver           #+#    #+#             */
-/*   Updated: 2018/06/26 10:32:09 by ndriver          ###   ########.fr       */
+/*   Created: 2018/06/27 11:09:13 by ndriver           #+#    #+#             */
+/*   Updated: 2018/06/27 11:09:40 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_cntwrd(char const *s, char c)
+int	ft_cntwrd(char const *s, char c)
 {
 	unsigned int	i;
 	int				cntr;

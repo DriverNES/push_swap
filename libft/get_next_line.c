@@ -3,67 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arcohen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/15 19:17:04 by arcohen           #+#    #+#             */
-/*   Updated: 2018/06/19 14:00:04 by arcohen          ###   ########.fr       */
+/*   Created: 2018/06/04 12:13:40 by jgovend           #+#    #+#             */
+/*   Updated: 2018/07/24 09:44:59 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*mallcat(char **line, char *buf, size_t i)
+static int	read_line(const int fd, char *buff, char **line)
 {
-	char *ret;
+	int		rd;
+	int		lenr;
+	int		size;
+	int		ret;
 
-	if (*line == 0)
-		return (ft_strsub(buf, 0, i));
-	ret = ft_strnew(ft_strlen(*line) + ft_strlen(buf));
-	ft_strcpy(ret, *line);
-	ft_strncat(ret, buf, i);
-	free(*line);
-	return (ret);
-}
-
-static int	findwrite(char *buf, char **line)
-{
-	ssize_t i;
-
-	if (!ft_strlen(buf))
-		return (0);
-	if ((i = ft_strchr(buf, '\n') - buf) >= 0)
+	size = BUFF_SIZE;
+	ret = 0;
+	(ft_strlen(*line) > 0) && (ret++);
+	while ((rd = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		*line = mallcat(line, buf, i);
-		ft_strcpy(buf, (buf + i + 1));
-		return (1);
+		lenr = 0;
+		while (lenr < rd && buff[lenr] != '\n')
+			lenr++;
+		if ((size - (int)ft_strlen(*line) - lenr - 1) < 0)
+			if (!(*line = ft_strresize(*line, size *= 2)))
+				return (-1);
+		ret = 1;
+		*line = ft_strncat(*line, buff, lenr);
+		(rd < BUFF_SIZE) && (buff[rd] = '\0');
+		(lenr == BUFF_SIZE) && (lenr--);
+		if (buff[lenr] == '\n' || rd < BUFF_SIZE)
+			return (1);
 	}
-	else
-	{
-		*line = mallcat(line, buf, ft_strlen(buf));
-		ft_strclr(buf);
-		return (0);
-	}
+	return (ret ? 1 : rd);
 }
 
 int			get_next_line(const int fd, char **line)
 {
-	char static	*buf;
-	ssize_t		n;
+	static char	buff[10000][BUFF_SIZE];
+	char		*str;
+	size_t		i;
+	size_t		j;
 
-	if (!buf)
-		buf = ft_strnew(BUFF_SIZE);
-	if (fd < 0 || line == 0 || read(fd, buf, 0) < 0)
+	if (fd < 0 || fd > 9999 || !line)
 		return (-1);
-	*line = 0;
-	if (findwrite(buf, line))
+	if ((str = ft_strnew(BUFF_SIZE)) == NULL)
+		return (-1);
+	*line = str;
+	i = -1;
+	while (++i < BUFF_SIZE && buff[fd][i] != '\n')
+		buff[fd][i] = '\0';
+	if (i == BUFF_SIZE)
+		return (read_line(fd, buff[fd], line));
+	buff[fd][i] = '\0';
+	if (++i == BUFF_SIZE || ft_strlen(i + buff[fd]) == 0)
+		return (read_line(fd, buff[fd], line));
+	j = -1;
+	while ((++j + i) < BUFF_SIZE && buff[fd][i + j] != '\n')
+		*(*line + j) = buff[fd][i + j];
+	if ((j + i) < BUFF_SIZE && buff[fd][i + j] == '\n')
 		return (1);
-	while ((n = read(fd, buf, BUFF_SIZE)) > 0)
-	{
-		buf[n] = 0;
-		if (findwrite(buf, line))
-			return (1);
-	}
-	if (*line)
-		return (1);
-	return (0);
+	return (read_line(fd, buff[fd], line));
 }
