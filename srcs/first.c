@@ -6,7 +6,7 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 07:44:19 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/11 11:40:43 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/11 14:06:51 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@ void	ft_init(t_stacks *s, int size)
 	i = 0;
 	s->a_top = -1;
 	s->b_top = -1;
+	s->size = size;
+	if (size < 200)
+	{
+		s->fract = size / 5;
+		s->fract_size = 5;
+	}
+	else
+	{
+		s->fract = size / 10;
+		s->fract_size = 10;
+	}
 	s->a = (int *)malloc(sizeof(int) * size);
 	s->b = (int *)malloc(sizeof(int) * size);
 	s->masterstack = (int *)malloc(sizeof(int) * size);
@@ -48,6 +59,18 @@ void	init_one(t_stacks *s, char *str)
 		s->a_top++;
 		count++;
 	}
+	s->size = i;
+	if (s->size < 200)
+	{
+		s->fract = i / 5;
+		s->fract_size = 5;
+	}
+	else
+	{
+		s->fract = i / 10;
+		s->fract_size = 10;
+	}
+	free(out);
 }
 
 void	error(int i)

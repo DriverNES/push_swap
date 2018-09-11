@@ -6,7 +6,7 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 07:58:52 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/11 11:40:58 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/11 14:07:04 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ int		main(int ac, char **av)
 	{
 		i = ac - 1;
 		ft_init(s, i);
+		ft_putnbr(s->fract);
 		while (count < i)
 		{
 			s->a[count] = ft_atoi(av[count + 1]);
@@ -230,7 +231,10 @@ int		main(int ac, char **av)
 	normalize(s);
 	set_var(s);
 //	print_tab(s, 'a');
-	algo1(s);
-//	print_tab(s, 'a');
+	algo2(s);
+	print_tab(s, 'a');
+//	ft_putchar('\n');
+//	print_tab(s, 'b');
+//	printf("96 / 5: %d - 96 / 10: %d", 96/5, 96/10);
 	return (0);
 }
