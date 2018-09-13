@@ -6,7 +6,7 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 07:33:38 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/11 13:20:58 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/13 13:44:58 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct	s_stacks
 	int		*masterstack;
 	int		size;
 	int		fract;
-	int		fract_size;
 	int		a_top;
 	int		b_top;
 	int		a_max;
@@ -37,7 +36,7 @@ typedef struct	s_stacks
 }			t_stacks;
 
 void		ft_init(t_stacks *s, int size);
-void		error(int i);
+void		error(void);
 void		normalize(t_stacks *s);
 int			is_ascending(t_stacks *s, char c);
 int			is_descending(t_stacks *s, char c);
@@ -58,6 +57,8 @@ void		rrr(t_stacks *s);
 void		sa(t_stacks *s);
 void		sb(t_stacks *s);
 void		ss(t_stacks *s);
+void		func(t_stacks *a, char *funct);
+void		pfunc(t_stacks *a, char *funct);
 int			check_dupes(t_stacks *s);
 void		algo2(t_stacks *s);
 void		sort_3a(t_stacks *s);

@@ -6,7 +6,7 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 07:44:19 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/11 14:06:51 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/13 13:35:55 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,15 @@ void	ft_init(t_stacks *s, int size)
 	s->b_top = -1;
 	s->size = size;
 	if (size < 200)
-	{
 		s->fract = size / 5;
-		s->fract_size = 5;
-	}
 	else
-	{
 		s->fract = size / 10;
-		s->fract_size = 10;
-	}
 	s->a = (int *)malloc(sizeof(int) * size);
 	s->b = (int *)malloc(sizeof(int) * size);
-	s->masterstack = (int *)malloc(sizeof(int) * size);
 	while (i <= size)
 	{
 		s->a[i] = 0;
 		s->b[i] = 0;
-		s->masterstack[i] = 0;
 		i++;
 	}
 }
@@ -61,22 +53,16 @@ void	init_one(t_stacks *s, char *str)
 	}
 	s->size = i;
 	if (s->size < 200)
-	{
 		s->fract = i / 5;
-		s->fract_size = 5;
-	}
 	else
-	{
 		s->fract = i / 10;
-		s->fract_size = 10;
-	}
 	free(out);
 }
 
-void	error(int i)
+void	error(void)
 {
-	ft_putnbr(i);
-	ft_putchar('\n');
+	ft_putendl("Error");
+	exit(0);
 }
 
 void	normalize(t_stacks *s)
@@ -103,12 +89,15 @@ void	normalize(t_stacks *s)
 				s->a[i]--;
 	}
 	free(tmp);
+	set_var(s);
 }
 
 void	set_var(t_stacks *s)
 {
 	set_min(s);
 	set_max(s);
+	if (check_dupes(s))
+		error();
 }
 
 void	set_max(t_stacks *s)
@@ -138,7 +127,7 @@ void	set_max(t_stacks *s)
 			if (s->b[i] >= s->b_max)
 			{
 				s->b_max = s->b[i];
-				s->b_max_index = s->b[i];
+				s->b_max_index = i;
 			}
 			i++;
 		}
@@ -172,7 +161,7 @@ void	set_min(t_stacks *s)
 			if (s->b[i] <= s->b_min)
 			{
 				s->b_min = s->b[i];
-				s->b_min_index = s->b[i];
+				s->b_min_index = i;
 			}
 			i++;
 		}

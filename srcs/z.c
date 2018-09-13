@@ -6,13 +6,47 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 07:58:52 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/11 14:07:04 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/13 12:46:11 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 #include <stdio.h>
+
+void	func(t_stacks *a, char *funct)
+{
+	if (!ft_strcmp(funct, "pa"))
+		pa(a);
+	else if (!ft_strcmp(funct, "pb"))
+		pb(a);
+	else if (!ft_strcmp(funct, "sa"))
+		sa(a);
+	else if (!ft_strcmp(funct, "sb"))
+		sb(a);
+	else if (!ft_strcmp(funct, "ss"))
+		ss(a);
+	else if (!ft_strcmp(funct, "ra"))
+		ra(a);
+	else if (!ft_strcmp(funct, "rb"))
+		rb(a);
+	else if (!ft_strcmp(funct, "rr"))
+		rr(a);
+	else if (!ft_strcmp(funct, "rra"))
+		rra(a);
+	else if (!ft_strcmp(funct, "rrb"))
+		rrb(a);
+	else if (!ft_strcmp(funct, "rrr"))
+		rrr(a);
+//	else
+//		ft_putendl("Error");
+}
+
+void	pfunc(t_stacks *s, char *funct)
+{
+	func(s, funct);
+	ft_putendl(funct);
+}
 
 void	pa(t_stacks *s)
 {
@@ -23,7 +57,6 @@ void	pa(t_stacks *s)
 	s->a[s->a_top] = 0;
 	s->a_top--;
 	set_var(s);
-	ft_putendl("pa");
 }
 
 void	pb(t_stacks *s)
@@ -35,7 +68,6 @@ void	pb(t_stacks *s)
 	s->b[s->b_top] = 0;
 	s->b_top--;
 	set_var(s);
-	ft_putendl("pb");
 }
 
 void	sa(t_stacks *s)
@@ -48,7 +80,6 @@ void	sa(t_stacks *s)
 	s->a[s->a_top] = s->a[s->a_top - 1];
 	s->a[s->a_top - 1] = tmp;
 	set_var(s);
-	ft_putendl("sa");
 }
 
 void	sb(t_stacks *s)
@@ -61,14 +92,12 @@ void	sb(t_stacks *s)
 	s->b[s->b_top] = s->b[s->b_top - 1];
 	s->b[s->b_top - 1] = tmp;
 	set_var(s);
-	ft_putendl("sb");
 }
 
 void	ss(t_stacks *s)
 {
 	sb(s);
 	sa(s);
-	ft_putendl("ss");
 }
 
 void	ra(t_stacks *s)
@@ -87,7 +116,6 @@ void	ra(t_stacks *s)
 	}
 	s->a[0] = tmp;
 	set_var(s);
-	ft_putendl("ra");
 }
 
 void	rb(t_stacks *s)
@@ -106,14 +134,12 @@ void	rb(t_stacks *s)
 	}
 	s->b[0] = tmp;
 	set_var(s);
-	ft_putendl("rb");
 }
 
 void	rr(t_stacks *s)
 {
 	ra(s);
 	rb(s);
-	ft_putendl("rr");
 }
 
 void	rra(t_stacks *s)
@@ -132,7 +158,6 @@ void	rra(t_stacks *s)
 	}
 	s->a[s->a_top] = tmp;
 	set_var(s);
-	ft_putendl("rra");
 }
 
 void	rrb(t_stacks *s)
@@ -151,14 +176,12 @@ void	rrb(t_stacks *s)
 	}
 	s->b[s->b_top] = tmp;
 	set_var(s);
-	ft_putendl("rrb");
 }
 
 void	rrr(t_stacks *s)
 {
 	ra(s);
 	rb(s);
-	ft_putendl("rrr");
 }
 
 void	sort_3a(t_stacks *s)
@@ -167,20 +190,20 @@ void	sort_3a(t_stacks *s)
 		return ;
 	else if (s->a[2] < s->a[0] && s->a[0] < s->a[1])
 	{
-		rra(s);
-		sa(s);
+		pfunc(s, "rra");
+		pfunc(s, "sa");
 	}
 	else if (s->a[2] > s->a[1] && s->a[1] > s->a[0])
 	{
-		ra(s);
-		sa(s);
+		pfunc(s, "ra");
+		pfunc(s, "sa");
 	}
 	else if (s->a[2] > s->a[1] && s->a[2] < s->a[0])
-		sa(s);
+		pfunc(s, "sa");
 	else if (s->a[2] > s->a[1] && s->a[2] > s->a[0])
-		ra(s);
+		pfunc(s, "ra");
 	else if (s->a[2] < s->a[1] && s->a[2] > s->a[0])
-		rra(s);
+		pfunc(s, "rra");
 }
 
 void	sort_3b(t_stacks *s)
@@ -203,38 +226,4 @@ void	sort_3b(t_stacks *s)
 		rb(s);
 	else if (s->b[2] < s->b[1] && s->b[2] > s->b[0])
 		rrb(s);
-}
-
-int		main(int ac, char **av)
-{
-	int			i;
-	int			count;
-	t_stacks	*s;
-
-	i = 0;
-	count = 0;
-	s = (t_stacks *)malloc(sizeof(t_stacks));
-	if (ac == 2)
-		init_one(s, av[1]);
-	else
-	{
-		i = ac - 1;
-		ft_init(s, i);
-		ft_putnbr(s->fract);
-		while (count < i)
-		{
-			s->a[count] = ft_atoi(av[count + 1]);
-			s->a_top++;
-			count++;
-		}
-	}
-	normalize(s);
-	set_var(s);
-//	print_tab(s, 'a');
-	algo2(s);
-	print_tab(s, 'a');
-//	ft_putchar('\n');
-//	print_tab(s, 'b');
-//	printf("96 / 5: %d - 96 / 10: %d", 96/5, 96/10);
-	return (0);
 }

@@ -6,31 +6,42 @@
 #    By: ndriver <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/17 10:55:32 by ndriver           #+#    #+#              #
-#    Updated: 2018/09/11 11:39:19 by ndriver          ###   ########.fr        #
+#    Updated: 2018/09/13 12:40:31 by ndriver          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap
-CC = gcc -o
-FLAGS = -Wall -Wextra -Werror
-INC = -I ./includes/
-LIB = ./libft/
-SRC = ./srcs/*.c
+NAME1= checker
 
-RM = rm -rf
+NAME2= push_swap
 
-$(NAME):
-	@make -C $(LIB)
-	@$(CC) $(NAME) $(FLAGS) $(SRC) $(INC) -L libft/ -lft
+all:	$(NAME1) $(NAME2)
 
-all: $(NAME)
+lib:	
+	make re -C ./libft/
+	make clean -C ./libft/
+
+SRC1= ./srcs/checker.c ./srcs/z.c ./srcs/algo.c ./srcs/first.c
+
+SRC2= ./srcs/push_swap.c ./srcs/z.c ./srcs/algo.c ./srcs/first.c
+
+OBJ1= $(SRC1:./srcs/*.c=.o)
+
+OBJ2= $(SRC2:./srcs/*.c=.o)
+
+$(NAME1):
+		gcc -Wall -Werror -Wextra -c $(SRC1)
+		gcc -o $(NAME1) $(OBJ1) -L. ./libft/libft.a
+
+$(NAME2):
+		gcc -Wall -Werror -Wextra -c $(SRC2)
+		gcc -o $(NAME2) $(OBJ2) -L. ./libft/libft.a
 
 clean:
-	@make clean -C $(LIB)
+		rm -f *.o
 
-fclean:
-	@make fclean -C $(LIB)
-	@$(RM) $(NAME)
+fclean:		clean
+		rm -rf $(NAME1)
+		rm -rf $(NAME2)
 
-
-re: fclean all
+re:		fclean all
+		make clean

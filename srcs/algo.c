@@ -6,7 +6,7 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 07:44:39 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/11 14:04:00 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/13 13:43:48 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,13 @@ void	algo2(t_stacks *s)
 	{
 		while (s->a_min < s->fract * i && s->a_top >= 3)
 		{
-			if (s->a[s->a_top] < s->fract * i)
-				pa(s);
+			if (s->a[s->a_top] <= s->fract * i && s->a[s->a_top] < s->a_max - 2)
+				pfunc(s, "pa");
 			else
-				ra(s);
+				pfunc(s, "ra");
 		}
 		if (s->a_min >= s->fract * i)
-		{
 			i++;
-	//		print_tab(s, 'b');
-		}
 	}
 	sort_3a(s);
 	algo3(s);
@@ -78,13 +75,16 @@ void	algo2(t_stacks *s)
 
 void	algo3(t_stacks *s)
 {
+	int i;
+
+	i = 0;
 	while (s->b_top != -1)
 	{
 		if (s->b_max == s->b[s->b_top])
-			pb(s);
+			pfunc(s, "pb");
 		else if (s->b_max_index < s->b_top / 2)
-			rb(s);
+			pfunc(s, "rrb");
 		else
-			rrb(s);
+			pfunc(s, "rb");
 	}
 }
