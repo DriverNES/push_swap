@@ -21,7 +21,6 @@ static int	read_line(const int fd, char *buff, char **line)
 
 	size = BUFF_SIZE;
 	ret = 0;
-	(ft_strlen(*line) > 0) && (ret++);
 	while ((rd = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		lenr = 0;
@@ -33,7 +32,6 @@ static int	read_line(const int fd, char *buff, char **line)
 		ret = 1;
 		*line = ft_strncat(*line, buff, lenr);
 		(rd < BUFF_SIZE) && (buff[rd] = '\0');
-		(lenr == BUFF_SIZE) && (lenr--);
 		if (buff[lenr] == '\n' || rd < BUFF_SIZE)
 			return (1);
 	}

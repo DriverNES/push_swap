@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
 #include "../includes/push_swap.h"
-#include <stdio.h>
+#include "../libft/libft.h"
 
 void	func(t_stacks *a, char *funct)
 {
@@ -38,8 +37,8 @@ void	func(t_stacks *a, char *funct)
 		rrb(a);
 	else if (!ft_strcmp(funct, "rrr"))
 		rrr(a);
-//	else
-//		ft_putendl("Error");
+	else
+		error();
 }
 
 void	pfunc(t_stacks *s, char *funct)
@@ -48,10 +47,10 @@ void	pfunc(t_stacks *s, char *funct)
 	ft_putendl(funct);
 }
 
-void	pa(t_stacks *s)
+void	pb(t_stacks *s)
 {
-	if (s->a[0] == 0)
-		return ;
+	if (s->a_top == -1)
+		error();
 	s->b_top++;
 	s->b[s->b_top] = s->a[s->a_top];
 	s->a[s->a_top] = 0;
@@ -59,10 +58,10 @@ void	pa(t_stacks *s)
 	set_var(s);
 }
 
-void	pb(t_stacks *s)
+void	pa(t_stacks *s)
 {
-	if (s->b[0] == 0)
-		return ;
+	if (s->b_top == -1)
+		error();
 	s->a_top++;
 	s->a[s->a_top] = s->b[s->b_top];
 	s->b[s->b_top] = 0;
@@ -74,8 +73,8 @@ void	sa(t_stacks *s)
 {
 	int tmp;
 
-	if (s->a[0] == 0)
-		return ;
+	if (s->a_top == -1)
+		error();
 	tmp = s->a[s->a_top];
 	s->a[s->a_top] = s->a[s->a_top - 1];
 	s->a[s->a_top - 1] = tmp;
@@ -86,8 +85,8 @@ void	sb(t_stacks *s)
 {
 	int tmp;
 
-	if (s->b[0] == 0)
-		return ;
+	if (s->b_top == -1)
+		error();
 	tmp = s->b[s->b_top];
 	s->b[s->b_top] = s->b[s->b_top - 1];
 	s->b[s->b_top - 1] = tmp;
@@ -105,8 +104,8 @@ void	ra(t_stacks *s)
 	int tmp;
 	int i;
 
-	if (s->a[0] == 0)
-		return ;
+	if (s->a_top == -1)
+		error();
 	i = 0;
 	tmp = s->a[s->a_top];
 	while (i < s->a_top)
@@ -123,8 +122,8 @@ void	rb(t_stacks *s)
 	int tmp;
 	int i;
 
-	if (s->b[0] == 0)
-		return ;
+	if (s->b_top == -1)
+		error();
 	i = 0;
 	tmp = s->b[s->b_top];
 	while (i < s->b_top)
@@ -147,8 +146,8 @@ void	rra(t_stacks *s)
 	int	tmp;
 	int	i;
 
-	if (s->a[0] == 0)
-		return ;
+	if (s->a_top == -1)
+		error();
 	i = 0;
 	tmp = s->a[0];
 	while (i < s->a_top)
@@ -165,8 +164,8 @@ void	rrb(t_stacks *s)
 	int	tmp;
 	int	i;
 
-	if (s->b[0] == 0)
-		return ;
+	if (s->b_top == -1)
+		error();
 	i = 0;
 	tmp = s->b[0];
 	while (i < s->b_top)

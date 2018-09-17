@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
 #include "../includes/push_swap.h"
+#include "../libft/libft.h"
 
 void	ft_init(t_stacks *s, int size)
 {
@@ -25,8 +25,8 @@ void	ft_init(t_stacks *s, int size)
 		s->fract = size / 5;
 	else
 		s->fract = size / 10;
-	s->a = (int *)malloc(sizeof(int) * size);
-	s->b = (int *)malloc(sizeof(int) * size);
+	s->a = (int *)malloc(sizeof(int) * size + 4);
+	s->b = (int *)malloc(sizeof(int) * size + 4);
 	while (i <= size)
 	{
 		s->a[i] = 0;
@@ -40,22 +40,31 @@ void	init_one(t_stacks *s, char *str)
 	int i;
 	int count;
 	char **out;
+	char *temp;
 
 	count = 0;
 	out = ft_strsplit(str, ' ');
 	i = ft_cntwrd(str, ' ');
 	ft_init(s, i);
-	while (count < i)
-	{
-		s->a[count] = ft_atoi(out[count]);
-		s->a_top++;
-		count++;
-	}
 	s->size = i;
 	if (s->size < 200)
 		s->fract = i / 5;
 	else
 		s->fract = i / 10;
+	while (count < s->size)
+	{
+		temp = ft_itoa(ft_atoi(out[i - 1]));
+		if (ft_strequ(out[i - 1], temp))
+		{
+			s->a[count] = ft_atoi(out[i - 1]);
+			s->a_top++;
+			i--;
+			count++;
+		}
+		else
+			error();
+		free(temp);
+	}
 	free(out);
 }
 
@@ -178,13 +187,11 @@ int		is_ascending(t_stacks *s, char c)
 	{
 		while (i <= s->a_top)
 		{
-			j = i;
+			j = i + 1;
 			while (j <= s->a_top)
 			{
-				if (s->a[i] < s->a[j])
-				{
+				if (s->a[i] < s->a[j] && j <= s->a_top)
 					return (0);
-				}
 				j++;
 			}
 			i++;
@@ -299,4 +306,6 @@ void	print_tab(t_stacks *s, char c)
 		ft_putchar('\n');
 		size--;
 	}
+	free (str);
+	free (tab);
 }

@@ -18,22 +18,35 @@ int		main(int ac, char **av)
 	t_stacks	s;
 	char		**line;
 	int			count;
+	int		i;
+	char		*temp;
 
 	count = 0;
 	line = malloc(10);
 	*line = malloc(10);
+//	ft_putendl(ft_itoa(ft_atoi(av[0])));
 	if (ac == 2)
 		init_one(&s, av[1]);
 	else
 	{
-		ft_init(&s, ac - 1);
-		while (count < ac - 1)
+		i = ac - 1;
+		ft_init(&s, i);
+		while (count < s.size)
 		{
-			s.a[count] = ft_atoi(av[count + 1]);
-			s.a_top++;
-			count++;
+			temp = ft_itoa(ft_atoi(av[i]));
+			if (ft_strequ(av[i], temp))
+			{
+				s.a[count] = ft_atoi(av[i]);
+				s.a_top++;
+				count++;
+				i--;
+			}
+			else
+				error();
+			free(temp);
 		}
 	}
+	normalize(&s);
 	if (check_dupes(&s))
 		error();
 	while (get_next_line(0, line) > 0)
@@ -43,7 +56,5 @@ int		main(int ac, char **av)
 	else
 		write(1, "KO\n", 3);
 	print_tab(&s, 'a');
-	ft_putendl("----------------------------------------");
-	print_tab(&s, 'b');
 	exit(0);
 }

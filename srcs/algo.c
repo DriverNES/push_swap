@@ -62,7 +62,7 @@ void	algo2(t_stacks *s)
 		while (s->a_min < s->fract * i && s->a_top >= 3)
 		{
 			if (s->a[s->a_top] <= s->fract * i && s->a[s->a_top] < s->a_max - 2)
-				pfunc(s, "pa");
+				pfunc(s, "pb");
 			else
 				pfunc(s, "ra");
 		}
@@ -75,13 +75,10 @@ void	algo2(t_stacks *s)
 
 void	algo3(t_stacks *s)
 {
-	int i;
-
-	i = 0;
 	while (s->b_top != -1)
 	{
 		if (s->b_max == s->b[s->b_top])
-			pfunc(s, "pb");
+			pfunc(s, "pa");
 		else if (s->b_max_index < s->b_top / 2)
 			pfunc(s, "rrb");
 		else

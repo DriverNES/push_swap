@@ -28,22 +28,24 @@ int		main(int ac, char **av)
 	{
 		i = ac - 1;
 		ft_init(s, i);
-		while (count < i)
+		while (count < s->size)
 		{
-			temp = ft_itoa(ft_atoi(av[count + 1]));
-			if (ft_strequ(av[count + 1], temp))
+			temp = ft_itoa(ft_atoi(av[i]));
+			if (ft_strequ(av[i], temp))
 			{
-				s->a[count] = ft_atoi(av[count + 1]);
+				s->a[count] = ft_atoi(av[i]);
 				s->a_top++;
+				i--;
+				count++;
 			}
 			else
 				error();
-			count++;
 			free(temp);
 		}
 	}
 	normalize(s);
 	algo2(s);
 //	print_tab(s, 'a');
+//	ft_putendl(ft_itoa(is_ascending(s, 'a')));
 	return (0);
 }

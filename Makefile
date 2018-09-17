@@ -29,12 +29,12 @@ OBJ1= $(SRC1:./srcs/*.c=.o)
 OBJ2= $(SRC2:./srcs/*.c=.o)
 
 $(NAME1):
-		gcc -Wall -Werror -Wextra -c $(SRC1)
-		gcc -o $(NAME1) $(OBJ1) -L. ./libft/libft.a
+		gcc -Wall -Werror -Wextra -g -c $(SRC1)
+		gcc -g -o $(NAME1) $(OBJ1) -L. ./libft/libft.a
 
 $(NAME2):
-		gcc -Wall -Werror -Wextra -c $(SRC2)
-		gcc -o $(NAME2) $(OBJ2) -L. ./libft/libft.a
+		gcc -Wall -Werror -Wextra -g -c $(SRC2)
+		gcc -g -o $(NAME2) $(OBJ2) -L. ./libft/libft.a
 
 clean:
 		rm -f *.o
