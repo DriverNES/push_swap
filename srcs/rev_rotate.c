@@ -1,42 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   rev_rotate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/13 12:38:54 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/18 10:02:42 by ndriver          ###   ########.fr       */
+/*   Created: 2018/09/18 09:14:14 by ndriver           #+#    #+#             */
+/*   Updated: 2018/09/18 09:59:40 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
-int		main(int ac, char **av)
+void	rra(t_stacks *s)
 {
-	int			i;
-	int			count;
-	t_stacks	*s;
-	char		*temp;
+	int	tmp;
+	int	i;
 
+	if (s->a_top == -1)
+		error();
 	i = 0;
-	count = -1;
-	s = (t_stacks *)malloc(sizeof(t_stacks));
-	if (ac == 2)
-		init_one(s, av[1]);
-	else
+	tmp = s->a[0];
+	while (i < s->a_top)
 	{
-		i = ac - 1;
-		ft_init(s, i);
-		while (++count < s->size)
-		{
-			temp = ft_itoa(ft_atoi(av[i]));
-			set_one(s, temp, av[i], count);
-			i--;
-			free(temp);
-		}
+		s->a[i] = s->a[i + 1];
+		i++;
 	}
-	normalize(s);
-	algo2(s);
-	return (0);
+	s->a[s->a_top] = tmp;
+	set_var(s);
+}
+
+void	rrb(t_stacks *s)
+{
+	int	tmp;
+	int	i;
+
+	if (s->b_top == -1)
+		error();
+	i = 0;
+	tmp = s->b[0];
+	while (i < s->b_top)
+	{
+		s->b[i] = s->b[i + 1];
+		i++;
+	}
+	s->b[s->b_top] = tmp;
+	set_var(s);
+}
+
+void	rrr(t_stacks *s)
+{
+	ra(s);
+	rb(s);
 }

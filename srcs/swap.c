@@ -1,42 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/13 12:38:54 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/18 10:02:42 by ndriver          ###   ########.fr       */
+/*   Created: 2018/09/18 09:15:00 by ndriver           #+#    #+#             */
+/*   Updated: 2018/09/18 09:59:25 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
-int		main(int ac, char **av)
+void	sa(t_stacks *s)
 {
-	int			i;
-	int			count;
-	t_stacks	*s;
-	char		*temp;
+	int tmp;
 
-	i = 0;
-	count = -1;
-	s = (t_stacks *)malloc(sizeof(t_stacks));
-	if (ac == 2)
-		init_one(s, av[1]);
-	else
-	{
-		i = ac - 1;
-		ft_init(s, i);
-		while (++count < s->size)
-		{
-			temp = ft_itoa(ft_atoi(av[i]));
-			set_one(s, temp, av[i], count);
-			i--;
-			free(temp);
-		}
-	}
-	normalize(s);
-	algo2(s);
-	return (0);
+	if (s->a_top == -1)
+		error();
+	tmp = s->a[s->a_top];
+	s->a[s->a_top] = s->a[s->a_top - 1];
+	s->a[s->a_top - 1] = tmp;
+	set_var(s);
+}
+
+void	sb(t_stacks *s)
+{
+	int tmp;
+
+	if (s->b_top == -1)
+		error();
+	tmp = s->b[s->b_top];
+	s->b[s->b_top] = s->b[s->b_top - 1];
+	s->b[s->b_top - 1] = tmp;
+	set_var(s);
+}
+
+void	ss(t_stacks *s)
+{
+	sb(s);
+	sa(s);
 }

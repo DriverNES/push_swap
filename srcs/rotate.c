@@ -1,43 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/13 11:55:39 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/18 11:27:01 by ndriver          ###   ########.fr       */
+/*   Created: 2018/09/18 09:13:43 by ndriver           #+#    #+#             */
+/*   Updated: 2018/09/18 09:59:15 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 #include "../libft/libft.h"
 
-int		main(int ac, char **av)
+void	ra(t_stacks *s)
 {
-	t_stacks	s;
-	char		**line;
-	int			count;
-	char		*temp;
+	int tmp;
+	int i;
 
-	count = -1;
-	line = malloc(10);
-	*line = malloc(10);
-	if (ac == 2)
-		init_one(&s, av[1]);
-	else
+	if (s->a_top == -1)
+		error();
+	i = 0;
+	tmp = s->a[s->a_top];
+	while (i < s->a_top)
 	{
-		ft_init(&s, ac - 1);
-		while (++count < s.size)
-		{
-			temp = ft_itoa(ft_atoi(av[ac - 1 - count]));
-			set_one(&s, temp, av[ac - 1 - count], count);
-			free(temp);
-		}
+		s->a[s->a_top - i] = s->a[s->a_top - i - 1];
+		i++;
 	}
-	normalize(&s);
-	while (get_next_line(0, line) > 0)
-		func(&s, *line);
-	checker(&s);
-	exit(0);
+	s->a[0] = tmp;
+	set_var(s);
+}
+
+void	rb(t_stacks *s)
+{
+	int tmp;
+	int i;
+
+	if (s->b_top == -1)
+		error();
+	i = 0;
+	tmp = s->b[s->b_top];
+	while (i < s->b_top)
+	{
+		s->b[s->b_top - i] = s->b[s->b_top - i - 1];
+		i++;
+	}
+	s->b[0] = tmp;
+	set_var(s);
+}
+
+void	rr(t_stacks *s)
+{
+	ra(s);
+	rb(s);
 }

@@ -6,56 +6,19 @@
 /*   By: ndriver <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 07:44:39 by ndriver           #+#    #+#             */
-/*   Updated: 2018/09/13 13:43:48 by ndriver          ###   ########.fr       */
+/*   Updated: 2018/09/18 09:48:49 by ndriver          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 #include "../libft/libft.h"
 
-void	algo1(t_stacks *s)
-{
-	int i;
-	int x;
-
-	i = s->a_top;
-	if (is_ascending(s, 'a'))
-		return ;
-	while (s->a_top >= 1)
-	{
-		if (s->a_min_index < s->a_top / 2)
-			x = 1;
-		while (s->a_min_index != s->a_top)
-		{
-			if (x == 1)
-			{
-				rra(s);
-				if (s->a_min_index == s->a_top)
-					break;
-			}
-			else
-			{
-				ra(s);
-				if (s->a_min_index == s->a_top)
-					break;
-			}
-		}
-		if (is_ascending(s, 'a'))
-			break;
-		pa(s);
-	}
-	while (s->a_top != i)
-	{
-		pb(s);
-	}
-}
-
 void	algo2(t_stacks *s)
 {
 	int i;
 
 	i = 1;
-	if (is_ascending(s, 'a'))
+	if (is_sorted(s))
 		return ;
 	while (s->a_top >= 3)
 	{
@@ -84,4 +47,26 @@ void	algo3(t_stacks *s)
 		else
 			pfunc(s, "rb");
 	}
+}
+
+void	sort_3a(t_stacks *s)
+{
+	if (s->a_top != 2)
+		return ;
+	else if (s->a[2] < s->a[0] && s->a[0] < s->a[1])
+	{
+		pfunc(s, "rra");
+		pfunc(s, "sa");
+	}
+	else if (s->a[2] > s->a[1] && s->a[1] > s->a[0])
+	{
+		pfunc(s, "ra");
+		pfunc(s, "sa");
+	}
+	else if (s->a[2] > s->a[1] && s->a[2] < s->a[0])
+		pfunc(s, "sa");
+	else if (s->a[2] > s->a[1] && s->a[2] > s->a[0])
+		pfunc(s, "ra");
+	else if (s->a[2] < s->a[1] && s->a[2] > s->a[0])
+		pfunc(s, "rra");
 }
